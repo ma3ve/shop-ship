@@ -1,7 +1,7 @@
 FROM node:16
-
+WORKDIR '/app'
 COPY . .
-RUN npm install && cd client && npm install 
-RUN npm run build
+RUN npm install
 EXPOSE 5000
-CMD [ "npm","start"]
+RUN npm run build
+CMD ["npm", "start"]
