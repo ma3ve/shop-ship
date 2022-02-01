@@ -21,7 +21,7 @@ app.use('/api/shipping', shippingRouter);
 app.get('/api', (_, res: Response) => res.send('server is up'));
 
 app.use('/', express.static(path.join(__dirname, 'client')));
-app.get('/', function (req, res) {
+app.get('*', function (req, res) {
   res.sendFile(path.join(__dirname, 'client/index.html'));
 });
 
