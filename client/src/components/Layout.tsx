@@ -23,7 +23,6 @@ function Layout({ children }: Props) {
 				onCollapse={(collapsed, type) => {
 					console.log(collapsed, type);
 				}}
-				style={{ height: '100vh' }}
 			>
 				<div className="logo" style={{
 					justifyContent: 'center',

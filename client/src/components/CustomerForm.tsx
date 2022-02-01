@@ -3,6 +3,7 @@ import { Modal, Form, Input, Button, Checkbox } from 'antd';
 import joi from 'joi';
 import { joiResolver } from '@hookform/resolvers/joi'
 import { useForm } from 'react-hook-form';
+import axios from 'axios'
 
 type Props = {};
 
@@ -22,9 +23,13 @@ function CustomerForm({ }: Props) {
 		setIsModalVisible(true);
 	};
 
-	const handleOk = () => {
-
+	const submit = (data: any) => {
+		axios.post("/api/customer", data).then(res => {
+			setIsModalVisible(false);
+		})
 	};
+
+	console.log(errors);
 
 	const handleCancel = () => {
 		setIsModalVisible(false);
@@ -36,7 +41,7 @@ function CustomerForm({ }: Props) {
 			<Button type="primary" onClick={showModal}>
 				Create Customer
 			</Button>
-			<form onSubmit={handleSubmit(handleOk)}>
+			<form onSubmit={handleSubmit(submit)}>
 				<Modal
 					title="Customer Details"
 					visible={isModalVisible}
@@ -44,7 +49,7 @@ function CustomerForm({ }: Props) {
 						<Button key="back" onClick={handleCancel}>
 							Return
 						</Button>,
-						<Button key="submit" htmlType='submit' onClick={() => handleSubmit(handleOk)} >
+						<Button key="submit" htmlType='submit' onClick={handleSubmit(submit)}>
 							Submit
 						</Button>,
 					]}
@@ -52,22 +57,27 @@ function CustomerForm({ }: Props) {
 					<Form.Item
 						label="Name"
 					>
-						<Input {...register("name")} />
+						<input {...register("name")} className='border-blue-400 border-2 w-full ' />
+						<p className='text-red-500'>{errors.name && errors.name.message.replaceAll('\"', "")}</p>
 					</Form.Item>
 					<Form.Item
 						label="Email"
 					>
-						<Input {...register("email")} />
+						<input {...register("email")} className='border-blue-400 border-2 w-full ' />
+						<p className='text-red-500'>{errors.email && errors.email.message.replaceAll('\"', "")}</p>
 					</Form.Item>
 					<Form.Item
 						label="Mobile"
 					>
-						<Input {...register("mobile")} />
+						<input {...register("mobile")} className='border-blue-400 border-2 w-full ' />
+						<p className='text-red-500'>{errors.mobile && errors.mobile.message.replaceAll('\"', "")}</p>
+
 					</Form.Item>
 					<Form.Item
 						label="City"
 					>
-						<Input {...register("city")} />
+						<input {...register("city")} className='border-blue-400 border-2 w-full ' />
+						<p className='text-red-500'>{errors.city && errors.city.message.replaceAll('\"', "")}</p>
 					</Form.Item>
 				</Modal>
 			</form >
